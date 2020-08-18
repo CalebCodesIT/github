@@ -3,7 +3,8 @@
 
 # ---
 USER=CalebCodesIT
-KEY=$HOME/.ssh/id_ed25519_no_pass_github
+#KEY=$HOME/.ssh/id_ed25519_no_pass_github
+KEY=/g/home/caleb/.ssh/id_rsa
 REPOS=$HOME/repos
 REPO=github
 
