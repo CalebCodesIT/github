@@ -1,0 +1,11 @@
+#!/bin/bash
+TOKEN=`cat ./token`
+
+#curl -H "Authorization: token "$OAUTH-TOKEN https://api.github.com
+#curl -u calebcodesit:$OAUTH_TOKEN https://api.github.com/calebcodesit
+
+
+#curl -s https://api.github.com/orgs/twitter/repos\?per_page\=200 | perl -ne 'print "$1\n" if (/"ssh_url": "([^"]+)/)' | xargs -n 1 git clone
+#curl -s https://api.github.com/user/calebcodesit/repos\?per_page\=200 | perl -ne 'print "$1\n" if (/"ssh_url": "([^"]+)/)' | xargs -n 1 git clone
+#curl -s https://api.github.com/user/calebcodesit/repos\?per_page\=200 | perl -ne 'print "$1\n" if (/"ssh_url": "([^"]+)/)'
+curl -s https://api.github.com/users/calebcodesit/repos\?per_page\=200 | perl -ne 'print "$1\n" if (/"ssh_url": "([^"]+)/)'

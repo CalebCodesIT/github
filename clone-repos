@@ -1,0 +1,18 @@
+#!/bin/bash
+# clone public repos
+clear
+
+# ---
+KEY=$HOME/.ssh/id_ed25519_no_pass_github
+USER=CalebCodesIT
+LIST_PUBLIC_REPOS=`curl -s https://api.github.com/users/CalebCodesIT/repos\?per_page\=200 | perl -ne 'print "$1\n" if (/"ssh_url": "([^"]+)/)'`
+REPOS=$HOME/repos
+
+pushd .
+cd $REPOS
+
+for repo in $LIST_PUBLIC_REPOS; do
+	printf "\n---\nProcessing=[$repo]\n"
+	ssh-agent bash -c 'ssh-add '$KEY'; git clone '$repo
+done
+popd

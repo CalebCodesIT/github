@@ -1,0 +1,13 @@
+#!/bin/bash
+# delete a github repo
+
+clear
+
+# ---
+# when creating auth token, must click the check box [x] delete repos for this to work
+TOKEN=`cat ./token`
+USER=CalebCodesIT
+REPO=github
+
+# ---
+curl -X DELETE -H 'Authorization: token '$TOKEN https://api.github.com/repos/$USER/$REPO
