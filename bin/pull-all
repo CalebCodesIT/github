@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# for all directories in /repos, do a git pull
+
+# todo
