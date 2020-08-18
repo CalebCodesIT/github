@@ -3,20 +3,23 @@
 
 # ---
 #KEY=$HOME/.ssh/id_ed25519_no_pass_github
-#REPOS=$HOME/repos
+#REPO_DIR=$HOME/repos
 
 KEY=/g/dev/calebcodesit/.ssh/id_ed25519_no_pass_github
-REPOS=/g/dev/calebcodesit/repos
+REPO_DIR=/g/dev/calebcodesit/repos
 USER=CalebCodesIT
 
 # ---
 clear
 pushd .
-cd $REPOS
+cd $REPO_DIR
 
-REPO=github
-ssh-agent bash -c 'ssh-add '$KEY'; git clone git@github.com:'$USER'/'$REPO'.git'
-popd
+#REPOS=github
+REPOS="twilio sendgrid"
+for repo in $REPOS; do
+	ssh-agent bash -c 'ssh-add '$KEY'; git clone git@github.com:'$USER'/'$REPO'.git'
+	popd
+done
 
 #id_ed25519_no_pass_github
 #id_ed25519_no_pass_github.pub
