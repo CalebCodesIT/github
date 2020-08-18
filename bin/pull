@@ -16,12 +16,12 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 fi
 
 # --
-REPOS=$HOME/repos
+REPO_DIR=$HOME/repos
 REPO=github
 
 # ---
 clear
 pushd .
-cd $REPOS/$REPO
+cd $REPO_DIR/$REPO
 ssh-agent bash -c 'ssh-add '$KEY'; git pull origin master'
 popd
