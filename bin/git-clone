@@ -1,23 +1,26 @@
 #!/bin/bash
 # git clone a repo, using a specific ssh key, possibly in another directory
+clear
+
+USER=CalebCodesIT
+# win
+if [[ "$OSTYPE" == "cygwin" ]]; then
+	HOME=/g/dev/calebcodesit
+	KEY=$HOME/.ssh/id_rsa
+#lin
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+	KEY=$HOME/.ssh/id_ed25519_no_pass_github
+fi
 
 # ---
-USER=CalebCodesIT
 REPO_DIR=$HOME/repos
 
-# win
-#KEY=/g/dev/calebcodesit/.ssh/id_ed25519_no_pass_github
-#REPO_DIR=/g/dev/calebcodesit/repos
-
-# lin
-KEY=$HOME/.ssh/id_ed25519_no_pass_github
-
 # ---
-clear
 
 #REPOS=github
 #REPOS="twilio sendgrid"
-REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
+#REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
+REPOS="apache-httpd"
 
 pushd .
 for repo in $REPOS; do
@@ -28,6 +31,4 @@ for repo in $REPOS; do
 done
 popd
 
-#id_ed25519_no_pass_github
-#id_ed25519_no_pass_github.pub
-# add clone all branches
+#todo: add clone all branches
