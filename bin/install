@@ -1,0 +1,5 @@
+#!/bin/bash
+#https://scoop.sh
+#scoop install hub
+
+dnf -y install hub
