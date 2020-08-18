@@ -1,0 +1,21 @@
+#!/bin/bash
+# git clone a repo, using a specific ssh key, possibly in another directory
+
+# ---
+USER=CalebCodesIT
+REPOS=$HOME/repos
+REPO=github
+
+# win
+#HOME=/g/dev/calebcodesit
+#KEY=$HOME/.ssh/id_rsa
+
+# lin
+KEY=$HOME/.ssh/id_ed25519_no_pass_github
+
+# ---
+clear
+pushd .
+cd $REPOS/$REPO
+ssh-agent bash -c 'ssh-add '$KEY'; git push origin master'
+popd
