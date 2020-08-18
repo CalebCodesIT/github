@@ -2,16 +2,23 @@
 # git clone a repo, using a specific ssh key, possibly in another directory
 
 # ---
-KEY=$HOME/.ssh/id_ed25519_no_pass_github
-REPOS=$HOME/repos
+#KEY=$HOME/.ssh/id_ed25519_no_pass_github
+#REPOS=$HOME/repos
+
+KEY=/g/dev/calebcodesit/.ssh/id_ed25519_no_pass_github
+REPOS=/g/dev/calebcodesit/repos
 USER=CalebCodesIT
 
 # ---
 clear
+pushd .
 cd $REPOS
 
 REPO=github
 ssh-agent bash -c 'ssh-add '$KEY'; git clone git@github.com:'$USER'/'$REPO'.git'
+popd
 
 #id_ed25519_no_pass_github
 #id_ed25519_no_pass_github.pub
+
+# add clone all branches
