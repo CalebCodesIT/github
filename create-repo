@@ -19,10 +19,10 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 fi
 
 #-- List of repos to create
-#REPOS=`cat ./repos-to-create.txt`
+REPOS=`cat ./repos-todo`
 #REPOS="twilio sendgrid"
 #REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
-REPOS="test_delete"
+#REPOS="test_delete"
 
 git config --global user.email "CalebCodesIT@gmail.com"
 git config --global user.name "Caleb Codes"
