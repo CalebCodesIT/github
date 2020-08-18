@@ -1,0 +1,9 @@
+#!/bin/bash
+git fetch
+git checkout origin/master pull
+
+#If you want to overwrite all changed files:
+#
+#git fetch
+#git reset --hard origin/master
+
