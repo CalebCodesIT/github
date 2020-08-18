@@ -1,16 +1,34 @@
 #!/bin/bash
 # Create a private repo on github
 clear
-TOKEN=`cat ./token`
-printf "\nTOKEN=[$token]"
 
-# ---
-echo "# repo:github " >> README.md
-chmod og-rwx README.md git-config
-git init
-git add README.md git-config
-git commit -m "initial commit"
-#curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"github", "private":"true"}'
-curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"github"}'
-git remote add origin git@github.com:CalebCodesIT/github.git
-git push -u origin master
+# --
+USER=CalebCodesIT
+HOME=/g/dev/calebcodesit
+TOKEN=`cat ./token`
+KEY=$HOME/.ssh/id_rsa
+
+#printf "\nTOKEN=[$token]"
+
+#-- List of repos to create
+#REPOS=`cat ./repos-to-create.txt`
+REPOS="twilio sendgrid"
+
+git config --global user.email "CalebCodesIT@gmail.com"
+git config --global user.name "Caleb Codes"
+for repo in $REPOS; do
+	printf "\n---\nProcessing: $repo\n"
+	mkdir ../$repo
+	pushd .
+	cd ../$repo
+	pwd
+	echo "# repo:$repo" >> README.md
+	chmod og-rwx README.md
+	git init
+	git add README.md
+	git commit -m "initial commit"
+	curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"'$repo'", "private":"true"}'
+	ssh-agent bash -c 'ssh-add '$KEY'; git remote add origin git@github.com:'$USER'/'$repo'.git'
+	ssh-agent bash -c 'ssh-add '$KEY'; git push -u origin master'
+	popd
+done
