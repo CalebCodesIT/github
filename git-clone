@@ -2,26 +2,26 @@
 # git clone a repo, using a specific ssh key, possibly in another directory
 
 # ---
-#KEY=$HOME/.ssh/id_ed25519_no_pass_github
-#REPO_DIR=$HOME/repos
-
-KEY=/g/dev/calebcodesit/.ssh/id_ed25519_no_pass_github
-REPO_DIR=/g/dev/calebcodesit/repos
 USER=CalebCodesIT
+KEY=$HOME/.ssh/id_ed25519_no_pass_github
+REPO_DIR=$HOME/repos
+#KEY=/g/dev/calebcodesit/.ssh/id_ed25519_no_pass_github
+#REPO_DIR=/g/dev/calebcodesit/repos
 
 # ---
 clear
-pushd .
-cd $REPO_DIR
 
 #REPOS=github
 REPOS="twilio sendgrid"
+pushd .
 for repo in $REPOS; do
-	ssh-agent bash -c 'ssh-add '$KEY'; git clone git@github.com:'$USER'/'$REPO'.git'
-	popd
+	cd $REPO_DIR
+	PWD=`pwd`
+	printf "\n---PWD=[$pwd]---\n"
+	ssh-agent bash -c 'ssh-add '$KEY'; git clone git@github.com:'$USER'/'$repo'.git'
 done
+popd
 
 #id_ed25519_no_pass_github
 #id_ed25519_no_pass_github.pub
-
 # add clone all branches
