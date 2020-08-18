@@ -1,6 +1,25 @@
 #!/bin/bash
 # Create a private repo on github
+# Usage:  ./create-repo <repo-name>
 clear
+
+#todo: read into array, and process array (allow multiple repos on cmd line)
+REPOS=$1
+
+if [ -z "$REPOS" ]
+then
+    #printf "\n\$REPO is not set"
+    # create repos from a file
+	#REPOS=`cat ./repos-todo`
+
+    # create repos from a list
+	#REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
+	REPOS="test_delete"
+else
+    printf "\$REPOS is set"
+fi
+printf "\n\$REPOS=[$REPOS]\n"
+#read -p "Press <Enter> to continue..."
 
 # --
 USER=CalebCodesIT
@@ -18,11 +37,6 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	KEY=$HOME/.ssh/id_ed25519_no_pass_github
 fi
 
-#-- List of repos to create
-REPOS=`cat ./repos-todo`
-#REPOS="twilio sendgrid"
-#REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
-#REPOS="test_delete"
 
 git config --global user.email "CalebCodesIT@gmail.com"
 git config --global user.name "Caleb Codes"
@@ -44,8 +58,9 @@ for repo in $REPOS; do
 
 	# new
 	curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'"}'
+	#curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'", "private":"true"}'
 
-	ssh-agent bash -c 'ssh-add '$KEY'; git remote add origin git@github.com:'$USER'/'$repo'.git'
+    ssh-agent bash -c 'ssh-add '$KEY'; git remote add origin git@github.com:'$USER'/'$repo'.git'
 	ssh-agent bash -c 'ssh-add '$KEY'; git push -u origin master'
-	popd
+    popd
 done
