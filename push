@@ -21,3 +21,4 @@ pushd .
 cd $REPOS/$REPO
 ssh-agent bash -c 'ssh-add '$KEY'; git push origin master'
 popd
+git status
