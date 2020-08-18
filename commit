@@ -1,2 +1,4 @@
 #!/bin/bash
-git commit -m "initial commit"
+#git commit -m "initial commit"
+git commit -m "updates"
+git status

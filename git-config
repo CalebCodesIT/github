@@ -1,4 +1,4 @@
 #!/bin/bash
 git config --global user.email "CalebCodesIT@gmail.com"
 git config --global user.name "Caleb Codes"
-
+git config pull.rebase true
