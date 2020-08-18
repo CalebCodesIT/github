@@ -3,7 +3,6 @@
 
 # ---
 USER=CalebCodesIT
-REPOS=$HOME/repos
 REPO=github
 
 # win
@@ -14,11 +13,12 @@ if [[ "$OSTYPE" == "cygwin" ]]; then
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	KEY=$HOME/.ssh/id_ed25519_no_pass_github
 fi
+REPO_DIR=$HOME/repos
 
 # ---
 clear
 pushd .
-cd $REPOS/$REPO
+cd $REPO_DIR/$REPO
 ssh-agent bash -c 'ssh-add '$KEY'; git push origin master'
 popd
 git status
