@@ -3,16 +3,22 @@
 
 # ---
 USER=CalebCodesIT
-KEY=$HOME/.ssh/id_ed25519_no_pass_github
 REPO_DIR=$HOME/repos
+
+# win
 #KEY=/g/dev/calebcodesit/.ssh/id_ed25519_no_pass_github
 #REPO_DIR=/g/dev/calebcodesit/repos
+
+# lin
+KEY=$HOME/.ssh/id_ed25519_no_pass_github
 
 # ---
 clear
 
 #REPOS=github
-REPOS="twilio sendgrid"
+#REPOS="twilio sendgrid"
+REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
+
 pushd .
 for repo in $REPOS; do
 	cd $REPO_DIR
