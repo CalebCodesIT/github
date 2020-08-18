@@ -5,7 +5,7 @@ clear
 
 # ---
 # when creating auth token, must click the check box [x] delete repos for this to work
-TOKEN=`cat ./token`
+TOKEN=`cat ../token`
 USER=CalebCodesIT
 REPO=test_delete
 

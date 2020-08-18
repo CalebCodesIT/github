@@ -14,16 +14,18 @@ then
 
     # create repos from a list
 	#REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
-	REPOS="test_delete"
+	#REPOS="test_delete"
+	REPOS="apache-httpd"
 else
     printf "\$REPOS is set"
 fi
+
 printf "\n\$REPOS=[$REPOS]\n"
 #read -p "Press <Enter> to continue..."
 
 # --
 USER=CalebCodesIT
-TOKEN=`cat ./token`
+TOKEN=`cat ../token`
 #printf "\nTOKEN=[$token]"
 
 #printf "\$OSTYPE=[$OSTYPE]"
@@ -36,15 +38,16 @@ if [[ "$OSTYPE" == "cygwin" ]]; then
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	KEY=$HOME/.ssh/id_ed25519_no_pass_github
 fi
+REPO_DIR=$HOME/repos
 
 
 git config --global user.email "CalebCodesIT@gmail.com"
 git config --global user.name "Caleb Codes"
 for repo in $REPOS; do
 	printf "\n---\nProcessing: $repo\n"
-	mkdir ../$repo
+	mkdir $REPO_DIR/$repo
 	pushd .
-	cd ../$repo
+	cd $REPO_DIR/$repo
 	pwd
 	echo "# repo:$repo" >> README.md
 	chmod og-rwx README.md
