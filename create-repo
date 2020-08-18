@@ -4,15 +4,22 @@ clear
 
 # --
 USER=CalebCodesIT
-HOME=/g/dev/calebcodesit
 TOKEN=`cat ./token`
+
+#win
+HOME=/g/dev/calebcodesit
 KEY=$HOME/.ssh/id_rsa
+
+#lin
+#HOME=/g/dev/calebcodesit
+#KEY=$HOME/.ssh/id_rsa
 
 #printf "\nTOKEN=[$token]"
 
 #-- List of repos to create
 #REPOS=`cat ./repos-to-create.txt`
-REPOS="twilio sendgrid"
+#REPOS="twilio sendgrid"
+REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
 
 git config --global user.email "CalebCodesIT@gmail.com"
 git config --global user.name "Caleb Codes"
@@ -27,7 +34,8 @@ for repo in $REPOS; do
 	git init
 	git add README.md
 	git commit -m "initial commit"
-	curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"'$repo'", "private":"true"}'
+	#curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"'$repo'", "private":"true"}'
+	curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"'$repo'"}'
 	ssh-agent bash -c 'ssh-add '$KEY'; git remote add origin git@github.com:'$USER'/'$repo'.git'
 	ssh-agent bash -c 'ssh-add '$KEY'; git push -u origin master'
 	popd
