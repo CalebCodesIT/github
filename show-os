@@ -1,10 +1,13 @@
 #!/bin/bash
+printf "\$OSTYPE=[$OSTYPE]"
 if [[ "$OSTYPE" == "cygwin" ]]; then
 	printf "\nWindows: cygwin"
         # POSIX compatibility layer and Linux environment emulation for Windows
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+#elif [[ "$OSTYPE" == "linux-gnu" ]]; then
 	printf "\nLinux: GNU"
 fi
+printf "\n---"
 
         # ...
 #elif [[ "$OSTYPE" == "darwin"* ]]; then
