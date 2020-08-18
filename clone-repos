@@ -2,10 +2,18 @@
 # clone public repos
 clear
 
-# ---
-KEY=$HOME/.ssh/id_ed25519_no_pass_github
 USER=CalebCodesIT
 LIST_PUBLIC_REPOS=`curl -s https://api.github.com/users/CalebCodesIT/repos\?per_page\=200 | perl -ne 'print "$1\n" if (/"ssh_url": "([^"]+)/)'`
+
+# ---
+# win
+if [[ "$OSTYPE" == "cygwin" ]]; then
+	HOME=/g/dev/calebcodesit
+	KEY=$HOME/.ssh/id_rsa
+#lin
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+	KEY=$HOME/.ssh/id_ed25519_no_pass_github
+fi
 REPOS=$HOME/repos
 
 pushd .
@@ -16,3 +24,5 @@ for repo in $LIST_PUBLIC_REPOS; do
 	ssh-agent bash -c 'ssh-add '$KEY'; git clone '$repo
 done
 popd
+
+
