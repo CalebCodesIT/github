@@ -1,9 +1,9 @@
 #!/bin/bash
-# clone a list of repos
+# clone public repos
 clear
 
 USER=CalebCodesIT
-REPOS_LIST="api-linkedin"
+LIST_PUBLIC_REPOS=`curl -s https://api.github.com/users/CalebCodesIT/repos\?per_page\=200 | perl -ne 'print "$1\n" if (/"ssh_url": "([^"]+)/)'`
 
 # ---
 # win
@@ -14,12 +14,12 @@ if [[ "$OSTYPE" == "cygwin" ]]; then
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	KEY=$HOME/.ssh/id_ed25519_no_pass_github
 fi
-REPO_DIR=$HOME/repos
+REPOS=$HOME/repos
 
 pushd .
-cd $REPO_DIR
+cd $REPOS
 
-for repo in $REPOS_LIST; do
+for repo in $LIST_PUBLIC_REPOS; do
 	printf "\n---\nProcessing=[$repo]\n"
 	ssh-agent bash -c 'ssh-add '$KEY'; git clone '$repo
 done

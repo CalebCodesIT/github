@@ -40,9 +40,8 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
 fi
 REPO_DIR=$HOME/repos
 
+./git-config
 
-git config --global user.email "CalebCodesIT@gmail.com"
-git config --global user.name "Caleb Codes"
 for repo in $REPOS; do
 	printf "\n---\nProcessing: $repo\n"
 	mkdir $REPO_DIR/$repo
@@ -60,8 +59,8 @@ for repo in $REPOS; do
 	#curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"'$repo'"}'
 
 	# new
-	curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'"}'
-	#curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'", "private":"true"}'
+	#curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'"}'
+	curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'", "private":"true"}'
 
     ssh-agent bash -c 'ssh-add '$KEY'; git remote add origin git@github.com:'$USER'/'$repo'.git'
 	ssh-agent bash -c 'ssh-add '$KEY'; git push -u origin master'
