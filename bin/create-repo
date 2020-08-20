@@ -15,7 +15,8 @@ then
     # create repos from a list
 	#REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
 	#REPOS="test_delete"
-	REPOS="apache-httpd"
+	#REPOS="apache-httpd"
+	REPOS="zapier rss semantic-web"
 else
     printf "\$REPOS is set"
 fi
