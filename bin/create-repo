@@ -9,14 +9,14 @@ REPOS=$1
 if [ -z "$REPOS" ]
 then
     #printf "\n\$REPO is not set"
-    # create repos from a file
-	#REPOS=`cat ./repos-todo`
+    #create repos from a file
+	REPOS=`cat ../repos-todo`
 
     # create repos from a list
 	#REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
 	#REPOS="test_delete"
 	#REPOS="apache-httpd"
-	REPOS="zapier rss semantic-web"
+	#REPOS="zapier rss semantic-web"
 else
     printf "\$REPOS is set"
 fi
@@ -48,14 +48,14 @@ for repo in $REPOS; do
 	mkdir $REPO_DIR/$repo
 	pushd .
 	cd $REPO_DIR/$repo
-    mkdir bin docs support todo
-    #mkdir docker buildah deploy data config install src/main/java/calebcodes 
-    touch bin/README.md docs/README.md support/README.md todo/README.md
 	pwd
-	echo "# repo:$repo" >> README.md
-	chmod og-rwx README.md
+
 	git init
-	git add README.md bin/README.md doc/README.md support/README.md todo/README.md
+	echo "# repo:$repo" >> README.md
+    mkdir bin docs support todo
+    touch bin/README.md docs/README.md support/README.md todo/README.md
+    #mkdir docker buildah deploy data config install src/main/java/calebcodes 
+	git add ./README.md ./bin/README.md ./docs/README.md ./support/README.md ./todo/README.md
 	git commit -m "initial commit of new repo template"
 
 	# old
