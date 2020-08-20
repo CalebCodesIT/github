@@ -11,6 +11,8 @@ then
     #printf "\n\$REPO is not set"
     # create repos from a file
     #REPOS=`cat ../repos-apache | grep -v \#`
+    #REPOS=`cat ../repos-aws | grep -v \#`
+    #REPOS=`cat ../repos-salesforce | grep -v \#`
     REPOS=`cat ../repos-todo | grep -v \#`
 
     # create repos from a list
