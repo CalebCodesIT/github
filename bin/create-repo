@@ -9,14 +9,12 @@ REPOS=$1
 if [ -z "$REPOS" ]
 then
     #printf "\n\$REPO is not set"
-    #create repos from a file
-	REPOS=`cat ../repos-todo`
+    # create repos from a file
+    REPOS=`cat ../repos-apache | grep -v \#`
+    #REPOS=`cat ../repos-todo | grep -v \#`
 
     # create repos from a list
-	#REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
-	#REPOS="test_delete"
-	#REPOS="apache-httpd"
-	#REPOS="zapier rss semantic-web"
+    #REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
 else
     printf "\$REPOS is set"
 fi
@@ -33,40 +31,46 @@ TOKEN=`cat ../token`
 
 # win
 if [[ "$OSTYPE" == "cygwin" ]]; then
-	HOME=/g/dev/calebcodesit
-	KEY=$HOME/.ssh/id_rsa
+    HOME=/g/dev/calebcodesit
+    KEY=$HOME/.ssh/id_rsa
 #lin
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	KEY=$HOME/.ssh/id_ed25519_no_pass_github
+    KEY=$HOME/.ssh/id_ed25519_no_pass_github
 fi
 REPO_DIR=$HOME/repos
 
 ./git-config
 
 for repo in $REPOS; do
-	printf "\n---\nProcessing: $repo\n"
-	mkdir $REPO_DIR/$repo
-	pushd .
-	cd $REPO_DIR/$repo
-	pwd
+    printf "\n---\nProcessing: $repo\n"
 
-	git init
-	echo "# repo:$repo" >> README.md
-    mkdir bin docs support todo
-    touch bin/README.md docs/README.md support/README.md todo/README.md
-    #mkdir docker buildah deploy data config install src/main/java/calebcodes 
-	git add ./README.md ./bin/README.md ./docs/README.md ./support/README.md ./todo/README.md
-	git commit -m "initial commit of new repo template"
+    if [ ! -d "../../$repo/.git" ]; then
+        printf "\n[$repo/.git] does not exist."     
+        mkdir $REPO_DIR/$repo
+        pushd .
+        cd $REPO_DIR/$repo
+        pwd
 
-	# old
-	#curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"'$repo'", "private":"true"}'
-	#curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"'$repo'"}'
+        git init
+        echo "# repo:$repo" >> README.md
+        mkdir bin docs support todo
+        touch bin/README.md docs/README.md support/README.md todo/README.md
+        #mkdir docker buildah deploy data config install src/main/java/calebcodes 
+        git add ./README.md ./bin/README.md ./docs/README.md ./support/README.md ./todo/README.md
+        git commit -m "initial commit of new repo template"
 
-	# new
-	#curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'"}'
-	curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'", "private":"true"}'
+        # old V2 API
+        #curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"'$repo'", "private":"true"}'
+        #curl https://api.github.com/user/repos?access_token=$TOKEN -d '{"name":"'$repo'"}'
 
-    ssh-agent bash -c 'ssh-add '$KEY'; git remote add origin git@github.com:'$USER'/'$repo'.git'
-	ssh-agent bash -c 'ssh-add '$KEY'; git push -u origin master'
-    popd
+        # new V3 API
+        #curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'"}'
+        curl -H 'Authorization: token '$TOKEN https://api.github.com/user/repos -d '{"name":"'$repo'", "private":"true"}'
+        ssh-agent bash -c 'ssh-add '$KEY'; git remote add origin git@github.com:'$USER'/'$repo'.git'
+        ssh-agent bash -c 'ssh-add '$KEY'; git push -u origin master'
+        popd
+    else
+        printf "\n[$repo/.git] exists."     
+        printf "\nskipping creating of repo, doing nothing"
+    fi
 done
