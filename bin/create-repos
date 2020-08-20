@@ -10,8 +10,8 @@ if [ -z "$REPOS" ]
 then
     #printf "\n\$REPO is not set"
     # create repos from a file
-    REPOS=`cat ../repos-apache | grep -v \#`
-    #REPOS=`cat ../repos-todo | grep -v \#`
+    #REPOS=`cat ../repos-apache | grep -v \#`
+    REPOS=`cat ../repos-todo | grep -v \#`
 
     # create repos from a list
     #REPOS="aws-ec2 aws-lambda aws-lightsail aws-s3"
@@ -53,10 +53,17 @@ for repo in $REPOS; do
 
         git init
         echo "# repo:$repo" >> README.md
-        mkdir bin docs support todo
-        touch bin/README.md docs/README.md support/README.md todo/README.md
-        #mkdir docker buildah deploy data config install src/main/java/calebcodes 
-        git add ./README.md ./bin/README.md ./docs/README.md ./support/README.md ./todo/README.md
+        git add ./README.md
+
+        # standard
+        DIRS="bin docs support todo"
+        #docker buildah deploy data config install src/main/java/calebcodes 
+        for dir in $DIRS; do
+            mkdir $dir 
+            touch $dir/README.md
+            git add $dir/README.md
+        done
+
         git commit -m "initial commit of new repo template"
 
         # old V2 API
